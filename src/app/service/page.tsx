@@ -8,7 +8,7 @@ function Dashboard() {
     { id: 1, name: "Lavado y Secado", price: 10.0, description: "Servicio básico de lavado y secado", photo: "/images/lavado.jpg" }
   ]);
 
-  const [newService, setNewService] = useState({ name: "", price: "", description: "", photo: "" });
+  const [newService, setNewService] = useState({ name: "", price: "", description: "", photo: "", fileName: "" });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -20,7 +20,7 @@ function Dashboard() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setNewService({ ...newService, photo: reader.result as string });
+        setNewService({ ...newService, photo: reader.result as string, fileName: file.name });
       };
       reader.readAsDataURL(file);
     }
@@ -29,7 +29,7 @@ function Dashboard() {
   const addService = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setServices([...services, { ...newService, id: services.length + 1, price: parseFloat(newService.price) }]);
-    setNewService({ name: "", price: "", description: "", photo: "" });
+    setNewService({ name: "", price: "", description: "", photo: "", fileName: "" });
   };
 
   const deleteService = (id: number) => {
@@ -42,7 +42,8 @@ function Dashboard() {
     if (serviceToUpdate) {
       setNewService({
         ...serviceToUpdate,
-        price: serviceToUpdate.price.toString()
+        price: serviceToUpdate.price.toString(),
+        fileName: "" // Reset fileName since it's not stored in the service
       });
     }
   };
@@ -53,46 +54,49 @@ function Dashboard() {
       <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-1 p-6 bg-white">
+      <div className="flex-1 p-6 bg-white flex flex-col">
         <h2 className="text-2xl font-bold mb-6 text-[#51626f]">Servicios</h2>
-        {/* Tabla de Servicios */}
-        <table className="min-w-full bg-white border rounded-lg">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="py-2 px-4 border-b text-left text-black">ID</th>
-              <th className="py-2 px-4 border-b text-left text-black">Foto</th>
-              <th className="py-2 px-4 border-b text-left text-black">Nombre del Servicio</th>
-              <th className="py-2 px-4 border-b text-left text-black">Precio</th>
-              <th className="py-2 px-4 border-b text-left text-black">Descripción</th>
-              <th className="py-2 px-4 border-b text-left text-black">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {services.map((service) => (
-              <tr key={service.id}>
-                <td className="py-2 px-4 border-b text-left text-black">{service.id}</td>
-                <td className="py-2 px-4 border-b text-left">
-                  <Image src={service.photo} alt="servicio" width={100} height={100} className="object-cover rounded-lg" />
-                </td>
-                <td className="py-2 px-4 border-b text-left text-black">{service.name}</td>
-                <td className="py-2 px-4 border-b text-left text-black">${service.price.toFixed(2)}</td>
-                <td className="py-2 px-4 border-b text-left text-black">{service.description}</td>
-                <td className="py-2 px-4 border-b text-left text-black">
-                  <button onClick={() => updateService(service.id)} className="bg-blue-500 text-white py-1 px-2 rounded-md mr-2">
-                    Actualizar
-                  </button>
-                  <button onClick={() => deleteService(service.id)} className="bg-red-500 text-white py-1 px-2 rounded-md">
-                    Eliminar
-                  </button>
-                </td>
+
+        {/* Contenedor de la Tabla */}
+        <div className="flex-1 overflow-auto mb-6">
+          <table className="min-w-full bg-white border rounded-lg">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="py-2 px-4 border-b text-left text-black">#</th>
+                <th className="py-2 px-4 border-b text-left text-black">Foto</th>
+                <th className="py-2 px-4 border-b text-left text-black">Nombre del Servicio</th>
+                <th className="py-2 px-4 border-b text-left text-black">Precio</th>
+                <th className="py-2 px-4 border-b text-left text-black">Descripción</th>
+                <th className="py-2 px-4 border-b text-left text-black">Acciones</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {services.map((service) => (
+                <tr key={service.id}>
+                  <td className="py-2 px-4 border-b text-left text-black">{service.id}</td>
+                  <td className="py-2 px-4 border-b text-left">
+                    <Image src={service.photo} alt="servicio" width={100} height={100} className="object-cover rounded-lg" />
+                  </td>
+                  <td className="py-2 px-4 border-b text-left text-black">{service.name}</td>
+                  <td className="py-2 px-4 border-b text-left text-black">${service.price.toFixed(2)}</td>
+                  <td className="py-2 px-4 border-b text-left text-black">{service.description}</td>
+                  <td className="py-2 px-4 border-b text-left text-black">
+                    <button onClick={() => updateService(service.id)} className="bg-blue-500 text-white py-1 px-2 rounded-md mr-2">
+                      Actualizar
+                    </button>
+                    <button onClick={() => deleteService(service.id)} className="bg-red-500 text-white py-1 px-2 rounded-md">
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
         {/* Formulario para Añadir Servicio */}
         <form className="mt-6" onSubmit={addService}>
-          <h3 className="text-xl font-bold mb-4">Añadir Nuevo Servicio</h3>
+          <h3 className="text-xl font-bold mb-4 text-[#51626f]">Añadir Nuevo Servicio</h3>
           <div className="mb-4">
             <label className="block text-sm font-medium text-[#51626f]" htmlFor="name">
               Nombre del Servicio
@@ -102,7 +106,7 @@ function Dashboard() {
               name="name"
               value={newService.name}
               onChange={handleInputChange}
-              className="mt-1 block w-full p-3 text-black border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-200 focus:ring-opacity-50"
+              className="mt-1 block w-full p-3 text-black border-gray-700 border-2 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-200 focus:ring-opacity-50"
               required
             />
           </div>
@@ -115,7 +119,7 @@ function Dashboard() {
               name="price"
               value={newService.price}
               onChange={handleInputChange}
-              className="mt-1 block w-full p-3 text-black border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-200 focus:ring-opacity-50"
+              className="mt-1 block w-full p-3 text-black border-gray-700 border-2 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-200 focus:ring-opacity-50"
               required
             />
           </div>
@@ -128,8 +132,7 @@ function Dashboard() {
               name="description"
               value={newService.description}
               onChange={handleInputChange}
-              className="mt-1 block w-full p-3 text-black border-gray-700 rounded-md shadow-sm focus:border-purple-500
-              focus:ring focus:ring-purple-200 focus:ring-opacity-50"
+              className="mt-1 block w-full p-3 text-black border-gray-700 border-2 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-200 focus:ring-opacity-50"
               required
             />
           </div>
@@ -137,14 +140,13 @@ function Dashboard() {
             <label className="block text-sm font-medium text-[#51626f]" htmlFor="photo">
               Foto
             </label>
-            <input
-              type="file"
-              accept="image/*"
-              name="photo"
-              onChange={handleFileChange}
-              className="mt-1 p-3 block w-full border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-200 focus:ring-opacity-50"
-              required
-            />
+            <div className="flex items-center">
+              <input type="file" accept="image/*" name="photo" onChange={handleFileChange} className="hidden" id="file-input" required />
+              <label htmlFor="file-input" className="bg-[#049fc5] text-white py-2 px-4 rounded-md cursor-pointer">
+                Choose File
+              </label>
+              {newService.fileName && <span className="ml-3 text-sm text-[#51626f]">{newService.fileName}</span>}
+            </div>
           </div>
           <button type="submit" className="bg-[#049fc5] text-white py-2 px-4 rounded-md">
             Añadir Servicio
