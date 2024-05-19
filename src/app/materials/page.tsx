@@ -53,8 +53,8 @@ function Dashboard() {
       <Sidebar />
 
       {/* Main Content */}
-      <div className="flex-1 p-6 bg-white">
-        <h2 className="text-2xl font-bold mb-6 text-[#51626f]">Servicios</h2>
+      <div className="flex-1 p-6">
+        <h2 className="text-2xl font-bold mb-6">Servicios</h2>
         {/* Tabla de Servicios */}
         <table className="min-w-full bg-white border rounded-lg">
           <thead className="bg-gray-100">
@@ -94,7 +94,7 @@ function Dashboard() {
         <form className="mt-6" onSubmit={addService}>
           <h3 className="text-xl font-bold mb-4">Añadir Nuevo Servicio</h3>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-[#51626f]" htmlFor="name">
+            <label className="block text-sm font-medium text-gray-700" htmlFor="name">
               Nombre del Servicio
             </label>
             <input
@@ -102,12 +102,12 @@ function Dashboard() {
               name="name"
               value={newService.name}
               onChange={handleInputChange}
-              className="mt-1 block w-full p-3 text-black border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-200 focus:ring-opacity-50"
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-200 focus:ring-opacity-50"
               required
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-[#51626f]" htmlFor="price">
+            <label className="block text-sm font-medium text-gray-700" htmlFor="price">
               Precio
             </label>
             <input
@@ -115,12 +115,12 @@ function Dashboard() {
               name="price"
               value={newService.price}
               onChange={handleInputChange}
-              className="mt-1 block w-full p-3 text-black border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-200 focus:ring-opacity-50"
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-200 focus:ring-opacity-50"
               required
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-[#51626f]" htmlFor="description">
+            <label className="block text-sm font-medium text-gray-700" htmlFor="description">
               Descripción
             </label>
             <input
@@ -128,13 +128,13 @@ function Dashboard() {
               name="description"
               value={newService.description}
               onChange={handleInputChange}
-              className="mt-1 block w-full p-3 text-black border-gray-700 rounded-md shadow-sm focus:border-purple-500
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-purple-500
               focus:ring focus:ring-purple-200 focus:ring-opacity-50"
               required
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-[#51626f]" htmlFor="photo">
+            <label className="block text-sm font-medium text-gray-700" htmlFor="photo">
               Foto
             </label>
             <input
@@ -142,12 +142,12 @@ function Dashboard() {
               accept="image/*"
               name="photo"
               onChange={handleFileChange}
-              className="mt-1 p-3 block w-full border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-200 focus:ring-opacity-50"
+              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-purple-500 focus:ring focus:ring-purple-200 focus:ring-opacity-50"
               required
             />
           </div>
-          <button type="submit" className="bg-[#049fc5] text-white py-2 px-4 rounded-md">
-            Añadir Servicio
+          <button type="submit" className="bg-purple-600 text-white py-2 px-4 rounded-md">
+            Añadir Material
           </button>
         </form>
       </div>
