@@ -2,7 +2,7 @@
 
 import { RiNotification2Fill, RiUserFill, RiMoneyDollarCircleFill, RiBarChartFill, RiPieChart2Fill } from "react-icons/ri";
 import Image from "next/image";
-
+import Link from "next/link";
 import Chart from "../../components/chart.js";
 import "../globals.css";
 import Sidebar from "../../components/sidebar";
@@ -85,7 +85,9 @@ function Dashboard() {
             </div>
             <div className="flex gap-2 items-center justify-between m-5 w-[80px]">
               <RiNotification2Fill className="text-3xl cursor-pointer text-[#51626f]" />
-              <RiUserFill className="text-3xl cursor-pointer text-[#51626f]" />
+              <Link href={"/profile"}>
+                <RiUserFill className="text-3xl cursor-pointer text-[#51626f]" />
+              </Link>
             </div>
           </div>
           {/* Estadisticas y demas */}

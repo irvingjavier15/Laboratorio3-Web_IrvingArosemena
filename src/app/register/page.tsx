@@ -5,7 +5,7 @@ function Register() {
   return (
     <div className="2xl:container h-screen m-auto bg-[#79ADDC]">
       <div hidden className="fixed inset-0 w-[52%] lg:block lg:bg-[#E4DFDA]">
-        <Image src="/images/login-bg.png" alt="Background" width={800} height={800} className="mx-auto mt-40" />
+        <Image src="/images/register.svg" alt="Background" width={600} height={600} className="mx-auto mt-40" />
 
         <div className="absolute top-0 left-0 p-4">
           <Image src="/images/image-1.png" alt="Logo" width={60} height={60} />
@@ -18,8 +18,8 @@ function Register() {
           <div className="space-y-4 flex flex-col justify-center items-center">
             <Image src="/images/delivery.png" alt="Logo" width={100} height={100} />
             <p className="font-medium text-lg text-white text-center">
-              Registra tu lavandería con nosotros y comienza a ofrecer un servicio de calidad a tus clientes.<span className="font-bold"> Crea tu cuenta</span> ahora mismo.
-              
+              Registra tu lavandería con nosotros y comienza a ofrecer un servicio de calidad a tus clientes.
+              <span className="font-bold"> Crea tu cuenta</span> ahora mismo.
             </p>
           </div>
 
